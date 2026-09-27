@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-navy: #0F2747;
+  --color-navy-dark: #091a30;
+  --color-navy-light: #163660;
+  --color-blue: #1D4ED8;
+  --color-blue-light: #3B6FEE;
+  --color-accent: #38BDF8;
+  --color-accent-light: #7DD3FC;
+  --color-surface: #F5F9FF;
+  --color-dark: #172033;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --radius-card: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #172033;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fluidité globale : toute interaction (couleur, ombre, transform) est animée
+   en douceur, sans qu'il soit nécessaire d'ajouter "transition" partout. */
+a,
+button,
+input,
+textarea,
+select,
+.transition-fluid {
+  transition:
+    background-color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Focus visible net et bleu, cohérent avec le thème, utile en accessibilité
+   et pour visualiser clairement les champs actifs des formulaires sensibles
+   (connexion admin, publication d'annonce, etc.) */
+:focus-visible {
+  outline: 2px solid #1D4ED8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bfdbfe;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Animations réutilisables pour un rendu dynamique --- */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); max-height: 0; }
+  to { opacity: 1; transform: translateY(0); max-height: 600px; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 400ms ease both;
+}
+
+.animate-slide-down {
+  animation: slideDown 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  overflow: hidden;
+}
+
+.animate-pulse-soft {
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+/* Décalage progressif pour un effet "cascade" sur les listes de cartes */
+.stagger-item {
+  animation: fadeInUp 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 60ms; }
+.stagger-item:nth-child(3) { animation-delay: 120ms; }
+.stagger-item:nth-child(4) { animation-delay: 180ms; }
+.stagger-item:nth-child(5) { animation-delay: 240ms; }
+.stagger-item:nth-child(6) { animation-delay: 300ms; }
+.stagger-item:nth-child(n+7) { animation-delay: 360ms; }
+
+.skeleton {
+  background: linear-gradient(90deg, #EFF6FF 25%, #DBEAFE 37%, #EFF6FF 63%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* Carte cliquable avec léger effet de "portance" au survol — utilisé pour
+   les annonces (immo/véhicules) afin de renforcer le côté dynamique du site */
+.card-lift {
+  transition:
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -12px rgba(29, 78, 216, 0.28);
+  border-color: #BFDBFE;
+}
+
+/* Fond dégradé bleu dynamique pour les sections héro */
+.bg-gradient-blue {
+  background: linear-gradient(135deg, #091a30 0%, #0F2747 45%, #1D4ED8 100%);
+}
